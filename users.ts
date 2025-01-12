@@ -24,8 +24,8 @@ export const addUser = (user: User) => {
 
 }
 
-export const findUser = (id: string) => {
-    
+export const findUser = (id: string) : User | undefined => {
+    return users.find((u) => u.id === id);
 }
 
 export const findUserByEmailPassword = (email: string, password: string) : User | undefined => {

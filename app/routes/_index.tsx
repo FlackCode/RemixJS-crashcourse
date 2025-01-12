@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Form } from "@remix-run/react";
-import { addUser, findUserByEmailPassword } from "users";
+import { Form, useActionData } from "@remix-run/react";
+import { addUser, findUserByEmailPassword, User } from "users";
 import { v4 as uuidv4 } from "uuid";
 
 export const meta: MetaFunction = () => {
@@ -9,6 +9,11 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Welcome to Remix!" },
   ];
 };
+
+type ActionData = {
+  error?: string,
+  user?: User;
+}
 
 export const action = async ({request}: {request: Request}) => {
   const formData = await request.formData();
@@ -43,6 +48,8 @@ export const action = async ({request}: {request: Request}) => {
 }
 
 export default function Index() {
+  const actionData = useActionData();
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
